@@ -25,3 +25,11 @@ Route::get('/category/edit/{id}', 'CategoryController@edit');
 Route::patch('/category/{id}', 'CategoryController@update');
 Route::delete('/category/{id}', 'CategoryController@destroy');
 
+// Route::get('test-email', function(){
+//     \Mail::raw('Halo Dhani', function($message){
+//         $message->to('dhanitk23@gmail.com', 'Dhani');
+//         $message->subject('Test');
+//     });
+// });
+
+

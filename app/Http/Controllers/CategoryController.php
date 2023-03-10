@@ -65,6 +65,11 @@ class CategoryController extends Controller
         ]);
         $category->save();
 
+        \Mail::raw('Ada data category ditambahkan! yaitu ' . $category->name, function($message){
+            $message->to('dhanitk23@gmail.com', 'Dhani');
+            $message->subject('New Data Category!');
+        });
+
         return redirect('category')->with('status', 'Saved new category successfully!');
     }
 
@@ -127,9 +132,19 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         DB::table('categories')->where('id', $id)->delete();
+
+        $category = new Category([
+            'name' => $request->name,
+        ]);
+        
+        \Mail::raw('Ada data category dihapus!' . $category->name, function($message){
+            $message->to('dhanitk23@gmail.com', 'Dhani');
+            $message->subject('Deleted Data Category!');
+        });
+        
         return redirect('category')->with('status', 'Delete data category successfully!');
     }
 }

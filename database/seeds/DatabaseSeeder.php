@@ -1,6 +1,7 @@
 <?php
 
 use App\Category;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategorySeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
