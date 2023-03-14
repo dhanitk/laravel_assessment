@@ -55,13 +55,17 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|min:3',
-        ], [
+            'publish' => 'required',
+        ],
+        [
             'name.required' => 'The name field is required bro.',
             'name.min' => 'Huhu. The name must be at least 3 characters.',
+            'publish.required' => 'The publish field is required bro.',
         ]);
 
         $category = new Category([
             'name' => $request->name,
+            'is_publish' => $request->publish,
         ]);
         $category->save();
 
@@ -114,13 +118,16 @@ class CategoryController extends Controller
         
         $validatedData = $request->validate([
             'name' => 'required|min:3',
+            'publish' => 'required',
         ], [
             'name.required' => 'The name field is required bro.',
             'name.min' => 'Huhu. The name must be at least 3 characters.',
+            'publish.required' => 'The publish field is required bro.',
         ]);
 
         DB::table('categories')->where('id', $id)->update([
             'name' => $request->name,
+            'is_publish' => $request->publish,
         ]);
 
         return redirect('category')->with('status', 'Update data category successfully!');

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -24,7 +26,18 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3'
+            'name' => 'required|min:3',
+            'is_publish' => 'required',
         ];
     }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Fail to save new category!',
+            'data'      => $validator->errors()
+        ]));
+    }
+
 }
